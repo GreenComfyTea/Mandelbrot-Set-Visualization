@@ -16,15 +16,15 @@ namespace MandelbrotSetVisualization
 
 		public WriteableBitmap WriteableBitmap { get => writeableBitmap; set => writeableBitmap = value; }
 
-		public MandelbrotSet(int width, int height, int iterationCount, double RealMin = -3.1d, double RealMax = 1.8d, double ImaginaryMin = -1.2d, double ImaginaryMax = 1.2d)
+		public MandelbrotSet(int width, int height, int iterationCount, double realMin = -3.1d, double realMax = 1.8d, double imaginaryMin = -1.2d, double imaginaryMax = 1.2d)
 		{
-			writeableBitmap = Create(width, height, iterationCount, RealMin, RealMax, ImaginaryMin, ImaginaryMax);
+			writeableBitmap = Create(width, height, iterationCount, realMin, realMax, imaginaryMin, imaginaryMax);
 		}
 
-		private WriteableBitmap Create(int width, int height, int iterationCount, double RealMin, double RealMax, double ImaginaryMin, double ImaginaryMax)
+		private WriteableBitmap Create(int width, int height, int iterationCount, double realMin, double realMax, double imaginaryMin, double imaginaryMax)
 		{
-			double RealFactor = (RealMax - RealMin) / (width - 1);
-			double ImaginaryFactor = (ImaginaryMax - ImaginaryMin) / (height - 1);
+			double RealFactor = (realMax - realMin) / (width - 1);
+			double ImaginaryFactor = (imaginaryMax - imaginaryMin) / (height - 1);
 
 			WriteableBitmap writeableBitmap = new WriteableBitmap(width, height, 96, 96, PixelFormats.Rgb24, null);
 			int stride = writeableBitmap.Format.BitsPerPixel / 8;
@@ -38,7 +38,7 @@ namespace MandelbrotSetVisualization
 					bool inside = false;
 					int iteration = 0;
 
-					Complex c = new Complex(RealMin + x * RealFactor, ImaginaryMax - y * ImaginaryFactor);
+					Complex c = new Complex(realMin + x * RealFactor, imaginaryMax - y * ImaginaryFactor);
 					Complex z = new Complex(c);
 					if (Math.Sqrt(Math.Pow(c.Real - 0.25d, 2) + Math.Pow(c.Imaginary, 2)) <= 0.5d - 0.5d * Math.Cos(Math.Atan2(c.Imaginary, c.Real - 0.25d)))
 					{
@@ -57,7 +57,7 @@ namespace MandelbrotSetVisualization
 						}
 					}
 
-					double value = ((double) (iteration + 1 - Math.Log(Math.Log(Complex.Abs(z))) / Math.Log(2))) / (double) iterationCount;
+					double value = (iteration + 1 - Math.Log(Math.Log(Complex.Abs(z))) / Math.Log(2)) / (double) iterationCount;
 
 					Color color = Colors.Black;
 					if (!inside)

@@ -61,7 +61,7 @@ namespace MandelbrotSetVisualization
 			Update(first.X, first.Y, second.X, second.Y);
 		}
 
-		public void Update(double x1 = 0, double y1 = 0, double x2 = 0, double y2 = 0)
+		public void Update(double x1 = 0d, double y1 = 0d, double x2 = 0d, double y2 = 0d)
 		{
 			rectangle.Width = Math.Abs(x1 - x2);
 			rectangle.Height = Math.Abs(y1 - y2); 
